@@ -12,11 +12,13 @@
         <h3>If you make them talk, cows have a robust vocabulary...</h3>
         <form action='' method='POST'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form }}
         <button type='submit'>Speak!</button>
         </form>
         {% if output %}
-        {{ output }}
+        <pre>
+        {{output}}
+        </pre>
         {% endif %}
     </body>
 </html>
