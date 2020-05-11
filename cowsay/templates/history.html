@@ -10,5 +10,20 @@
         <a href={% url 'history' %}>Recent</a>
         <h1>Cow Talk</h1>
         <h3>Most recent thoughts...</h3>
+        {% if history %}
+
+            {% for entry in history %}
+                <br>
+                <strong>{{ entry.created }}</strong><br>
+                <pre>
+                {{ entry.cow_text }}
+                </pre>
+            {% endfor %}
+
+        {% else %}
+
+            <h4>Make your cow talk first...</h4>
+
+        {% endif %}
     </body>
 </html>
