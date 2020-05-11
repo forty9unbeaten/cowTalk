@@ -6,4 +6,8 @@ from cowsay.forms import TextForm
 
 def index(request):
     form = TextForm()
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'index.html', {'form': form, 'output': None})
+
+
+def history_view(request):
+    return render(request, 'history.html')
