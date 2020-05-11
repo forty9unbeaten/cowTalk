@@ -7,6 +7,7 @@
     </head>
     <body>
         <a href={% url 'homepage' %}>Home</a>
+        <a href={% url 'history' %}>Recent</a>
         <h1>Cow Talk</h1>
         <h3>If you make them talk, cows have a robust vocabulary...</h3>
         <form action='' method='POST'>
@@ -14,5 +15,8 @@
         {{ form.as_p }}
         <button type='submit'>Speak!</button>
         </form>
+        {% if output %}
+        {{ output }}
+        {% endif %}
     </body>
 </html>
