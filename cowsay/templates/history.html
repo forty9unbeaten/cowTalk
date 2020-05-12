@@ -7,9 +7,22 @@
     </head>
     <body>
         <a href={% url 'homepage' %}>Home</a>
-        <a href={% url 'history' %}>Recent</a>
+        <a href='./default'>Recent</a>
         <h1>Cow Talk</h1>
         <h3>Most recent thoughts...</h3>
+
+        <label for='picture'>Character: </label>
+        <select id='picture' onChange='window.location.href=this.value'>
+            {% for choice in dropdown_choices %}
+                {% if choice == selected_pic %}
+                    <option selected='selected' value='../history/{{ choice }}'>{{ choice }}</option>
+                {% else %}
+                    <option value='../history/{{ choice }}'>{{ choice }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <br>
+        
         {% if history %}
 
             {% for entry in history %}
