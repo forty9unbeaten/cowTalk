@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from cowsay.forms import TextForm
 from cowsay.models import CowSentence
-import subprocess
+from cowsay.utils import run_cowsay, make_entry_dict
 
 
 # Create your views here.
@@ -13,17 +13,14 @@ def index(request):
         form = TextForm(request.POST)
         if form.is_valid():
             cowText = form.cleaned_data['text']
-
-            # run cowsay subprocess and capture output
-            cowsay = subprocess.run(
-                ['cowsay', cowText],
-                stdout=subprocess.PIPE)
-            output = cowsay.stdout.decode()
-            # create new database instance with subprocess output
-            new_entry = CowSentence(
-                cow_text=output
+            # create a new database instance storing text string
+            new_db_entry = CowSentence(
+                cow_text=cowText
             )
-            new_entry.save()
+            new_db_entry.save()
+
+            # run cowsay subprocess function and capture output
+            output = run_cowsay(cowText)
 
             return render(request,
                           'index.html',
@@ -47,9 +44,13 @@ def history_view(request):
     number_of_entries = len(all_entries)
 
     if number_of_entries > 10:
-        history = all_entries[number_of_entries - 10:]
+        history = [make_entry_dict(entry)
+                   for entry in all_entries[number_of_entries - 10:]]
+
     elif number_of_entries > 0:
-        history = all_entries
+        history = [make_entry_dict(entry)
+                   for entry in all_entries]
+
     else:
         history = None
 
