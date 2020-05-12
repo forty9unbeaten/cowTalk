@@ -14,9 +14,9 @@
 
             {% for entry in history %}
                 <br>
-                <strong>{{ entry.created }}</strong><br>
+                <strong>{{ entry.date }}</strong><br>
                 <pre>
-                {{ entry.cow_text }}
+{{ entry.output }}
                 </pre>
             {% endfor %}
 
